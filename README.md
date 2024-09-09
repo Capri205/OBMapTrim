@@ -18,7 +18,7 @@ Where:
 You only need to provide the world folder path. The radius and preserve block list have defaults that will be used<br>
 in the event you do not provide them. While running it will output what it's doing and will write a lot of detail<br>
 to a log file. The log file will have the format 'obmaptrim-YYYYMMDD-HHMMSS.log' where YYYYMMDD are the year, month<br>
-and day, and HHMMSS are the hour, minutes and seconds when the script was run.
+and day, and HHMMSS are the hour, minutes and seconds when the program was run.
 
 Examples:
 
@@ -30,7 +30,7 @@ Specify the radius you want to preserve around a chunk by specifying it with the
 
 	java -cp OBMapTrim-1.0.jar net.obmc.OBMapTrim.OBMapTrim -w ~/myserver/world -r 10
 
-Tell the script the radius and what blocks to look for in the chunks:
+Tell the program the radius and what blocks to look for in the chunks:
 
 	java -cp OBMapTrim-1.0.jar net.obmc.OBMapTrim.OBMapTrim -w ~/myserver/world -r 10
 	-p "redstone_lamp,lit_redstone_lamp,sea_lantern"
@@ -58,9 +58,9 @@ get a count of chunks in each file and make an internal hash of the chunks and a
 every chunk. The second pass processes the blocks of each chunk and looks for any of the preserve blocks.<br>
 If there are any, then the chunk in the hash is marked for keeping and all of the chunks in the specified<br>
 radius around it will also be marked for keeping, if not already marked. The third and final pass will<br>
-check if the chunk is marked for keeping or removal based on the hash status. If there are no chunks to<br>
-be retained in the region file, then it is removed along with any corresponding poi end entity region files,<br>
-otherwise the region file is saved.<br>
+remove the chunk is not marked for keeping based on the hash status. If there are no chunks to be retained<br>
+in the region file, then the file is removed along with any corresponding poi end entity region files,<br>
+otherwise the region file is saved to update it with any changes.<br>
 
 <span style="color:red">IMPORTANT</span>: **Make sure you back up your world before running this program!!**<br>
 If any errors are encountered processing region files, then the program will terminate. This could leave your<br>
