@@ -20,6 +20,7 @@ public class Options {
 	);
 	private List<String> preserveBlocks = new ArrayList<String>();
 	private boolean status = true;
+	private boolean loadChunkMap = false;
 	
 	public void ReadArgs( String[] args ) {
 		
@@ -79,6 +80,12 @@ public class Options {
 					OBMapTrim.outputMsg( "Unable to parse preserve blocks\n", false, true, true );
 					this.status = false;
 				}
+				
+			// get retry flag
+			} else if ( args[i].equals( "-l" ) ) {
+
+				this.loadChunkMap = true;
+				
 			} else {
 
 				OBMapTrim.outputMsg( "Unknown option " + args[i] + "\n", true, false, true );
@@ -113,5 +120,9 @@ public class Options {
 	
 	public boolean getStatus() {
 		return this.status;
+	}
+	
+	public boolean getLoadChunkMap() {
+		return this.loadChunkMap;
 	}
 }

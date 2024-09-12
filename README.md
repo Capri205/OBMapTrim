@@ -14,11 +14,14 @@ Where:
     -w <world path> The path to the world folder
     -r <radius> Preserve area around current chunk being checked
     -p <preserve blocks> A list of 'preserve' blocks to look for in a chunk
+    -l Load chunk data from a file
 
 You only need to provide the world folder path. The radius and preserve block list have defaults that will be used<br>
 in the event you do not provide them. While running it will output what it's doing and will write a lot of detail<br>
 to a log file. The log file will have the format 'obmaptrim-YYYYMMDD-HHMMSS.log' where YYYYMMDD are the year, month<br>
-and day, and HHMMSS are the hour, minutes and seconds when the program was run.
+and day, and HHMMSS are the hour, minutes and seconds when the program was run. The -l load option is for loading<br>
+chunk data from a save file instead of scanning all region files for chunk data, instead of scanning for it. If you<br>
+have a big map it will save you a lot of time in the event you need to run the program multiple times.<br>
 
 Examples:
 
@@ -34,6 +37,10 @@ Tell the program the radius and what blocks to look for in the chunks:
 
 	java -cp OBMapTrim-1.0.jar net.obmc.OBMapTrim.OBMapTrim -w ~/myserver/world -r 10
 	-p "redstone_lamp,lit_redstone_lamp,sea_lantern"
+
+Use the chunk load option to load chunk state from the file "chunkData.dat":
+
+	java -cp OBMapTrim-1.0.jar net.obmc.OBMapTrim.OBMapTrim -w ~/myserver/world -r 10 -l
 
 The default radius is 3 and the default block list is based on blocks we use for our city build server:
 
@@ -57,10 +64,12 @@ The program will make three passes of the world region files in order to remove 
 get a count of chunks in each file and make an internal hash of the chunks and a unique identifier for<br>
 every chunk. The second pass processes the blocks of each chunk and looks for any of the preserve blocks.<br>
 If there are any, then the chunk in the hash is marked for keeping and all of the chunks in the specified<br>
-radius around it will also be marked for keeping, if not already marked. The third and final pass will<br>
-remove the chunk is not marked for keeping based on the hash status. If there are no chunks to be retained<br>
-in the region file, then the file is removed along with any corresponding poi end entity region files,<br>
-otherwise the region file is saved to update it with any changes.<br>
+radius around it will also be marked for keeping, if not already marked. At this point the chunkData.dat<br>
+is created from the hashmap, which can be loaded with the -l option and therefore skipping the first two<br>
+passes. Very handy if you want to perform multiple runs of the program to get the map just right. The third<br>
+and final pass will remove the chunk if not marked for keeping based on the hash status. If there are no<br>
+chunks to be retained in the region file, then the file is removed along with any corresponding poi end entity<br>
+region files, otherwise the region file is saved to update it with any changes.<br>
 
 <span style="color:red">IMPORTANT</span>: **Make sure you back up your world before running this program!!**<br>
 If any errors are encountered processing region files, then the program will terminate. This could leave your<br>
